@@ -5,6 +5,7 @@ import SchoolAdminDashboard from './pages/admin/Dashboard'; // Assuming 'admin' 
 import TeacherDashboard from './pages/teacher/Dashboard';
 import StudentDashboard from './pages/student/Dashboard';
 import ParentDashboard from './pages/parent/Dashboard';
+import MaintenanceDashboard from './pages/maintenance/Dashboard';
 import { useAuth } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import DashboardLayout from './layouts/DashboardLayout';
@@ -57,6 +58,12 @@ function App() {
                 <Route path="/parent/*" element={
                     <ProtectedRoute allowedRoles={['parent']}>
                         <ParentDashboard />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/maintenance/*" element={
+                    <ProtectedRoute allowedRoles={['maintenance']}>
+                        <MaintenanceDashboard />
                     </ProtectedRoute>
                 } />
             </Route>

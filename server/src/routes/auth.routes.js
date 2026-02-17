@@ -19,6 +19,15 @@ router.post('/register', async (req, res, next) => {
 // POST /api/auth/login
 router.post('/login', async (req, res, next) => {
     try {
+        // resilience: Check DB connection
+        const mongoose = require('mongoose');
+        if (mongoose.connection.readyState !== 1) {
+            return res.status(503).json({
+                success: false,
+                message: 'Service Unavailable: Database connection could not be established. Please try again later.'
+            });
+        }
+
         const { email, password } = req.body;
         if (!email || !password) {
             return res.status(400).json({ success: false, message: 'Please provide email and password' });

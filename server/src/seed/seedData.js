@@ -65,6 +65,13 @@ const seedDatabase = async () => {
         salary: { basic: 80000, allowances: 20000, deductions: 5000 },
     });
 
+    // --- Maintenance Head ---
+    const maintenanceUser = await User.create({
+        name: 'Ramesh Maintenance', email: 'maintenance@dps.edu.in', password: 'Maintenance@123',
+        role: 'maintenance', schoolId: school1._id, phone: '+91-9876543222',
+    });
+    console.log('✅ Maintenance User created');
+
     // --- Teachers for School 1 ---
     const teacherNames = [
         { name: 'Amit Patel', email: 'amit.patel@dps.edu.in', dept: 'Mathematics', subject: 'Mathematics' },

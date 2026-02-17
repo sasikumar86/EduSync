@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema(
         password: { type: String, required: [true, 'Password is required'], minlength: 6, select: false },
         role: {
             type: String,
-            enum: ['superadmin', 'schooladmin', 'teacher', 'student', 'parent'],
+            enum: ['superadmin', 'schooladmin', 'teacher', 'student', 'parent', 'maintenance'],
             required: true,
         },
         schoolId: { type: mongoose.Schema.Types.ObjectId, ref: 'School' },

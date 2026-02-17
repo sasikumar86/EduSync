@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const mongoose = require('mongoose'); // Added for connection check
 const connectDB = require('./src/config/db');
 const errorHandler = require('./src/middleware/errorHandler');
 
@@ -78,10 +79,18 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
-  await connectDB();
+  try {
+    await connectDB();
+  } catch (err) {
+    console.error('⚠️ Database connection failed, starting server in limited mode:', err.message);
+  }
+
   app.listen(PORT, () => {
     console.log(`🚀 EduSync server running on port ${PORT}`);
     console.log(`📊 Environment: ${process.env.NODE_ENV}`);
+    if (mongoose.connection.readyState !== 1) {
+      console.log('⚠️ Server running without Database connection (Landing Page Only)');
+    }
   });
 };
 

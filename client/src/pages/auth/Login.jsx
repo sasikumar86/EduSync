@@ -10,6 +10,7 @@ const demoAccounts = [
     { label: 'Teacher', email: 'amit.patel@dps.edu.in', password: 'Teacher@123', color: 'bg-amber-500' },
     { label: 'Student', email: 'arjun.m@student.dps.edu.in', password: 'Student@123', color: 'bg-accent-500' },
     { label: 'Parent', email: 'parent.arjun.m@student.dps.edu.in', password: 'Parent@123', color: 'bg-cyan-500' },
+    { label: 'Maintenance', email: 'maintenance@dps.edu.in', password: 'Maintenance@123', color: 'bg-slate-500' },
 ];
 
 export default function Login() {
@@ -43,6 +44,9 @@ export default function Login() {
                     break;
                 case 'parent':
                     navigate('/parent');
+                    break;
+                case 'maintenance':
+                    navigate('/maintenance');
                     break;
                 default:
                     navigate('/');
