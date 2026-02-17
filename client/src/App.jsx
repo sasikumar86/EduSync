@@ -1,5 +1,6 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import Login from './pages/auth/Login';
+
 // School Admin Pages
 import SchoolAdminDashboard from './pages/admin/Dashboard';
 import StudentsPage from './pages/admin/Students';
@@ -13,16 +14,11 @@ import LibraryPage from './pages/admin/Library';
 import TransportPage from './pages/admin/Transport';
 import NotificationsPage from './pages/admin/Notifications';
 
-// Teacher Pages
+// Other Dashboards
+import SuperAdminDashboard from './pages/superadmin/Dashboard';
 import TeacherDashboard from './pages/teacher/Dashboard';
-import TeacherAttendance from './pages/teacher/Attendance';
-import TeacherResults from './pages/teacher/Results';
-
-// Student Pages
 import StudentDashboard from './pages/student/Dashboard';
-// Parent Pages
 import ParentDashboard from './pages/parent/Dashboard';
-// Maintenance Page
 import MaintenanceDashboard from './pages/maintenance/Dashboard';
 
 import { useAuth } from './contexts/AuthContext';
@@ -49,7 +45,7 @@ function App() {
                 <Route path="/superadmin/*" element={<ProtectedRoute allowedRoles={['superadmin']}><SuperAdminDashboard /></ProtectedRoute>} />
 
                 {/* School Admin */}
-                <Route path="/schooladmin" element={<ProtectedRoute allowedRoles={['schooladmin']} />}>
+                <Route path="/schooladmin" element={<ProtectedRoute allowedRoles={['schooladmin']}><Outlet /></ProtectedRoute>}>
                     <Route index element={<SchoolAdminDashboard />} />
                     <Route path="students" element={<StudentsPage />} />
                     <Route path="staff" element={<StaffPage />} />
@@ -64,26 +60,24 @@ function App() {
                 </Route>
 
                 {/* Teacher */}
-                <Route path="/teacher" element={<ProtectedRoute allowedRoles={['teacher']} />}>
+                <Route path="/teacher" element={<ProtectedRoute allowedRoles={['teacher']}><Outlet /></ProtectedRoute>}>
                     <Route index element={<TeacherDashboard />} />
-                    <Route path="attendance" element={<TeacherAttendance />} />
-                    <Route path="results" element={<TeacherResults />} />
                     <Route path="library" element={<LibraryPage />} />
                 </Route>
 
                 {/* Student */}
-                <Route path="/student" element={<ProtectedRoute allowedRoles={['student']} />}>
+                <Route path="/student" element={<ProtectedRoute allowedRoles={['student']}><Outlet /></ProtectedRoute>}>
                     <Route index element={<StudentDashboard />} />
                     <Route path="library" element={<LibraryPage />} />
                 </Route>
 
                 {/* Parent */}
-                <Route path="/parent" element={<ProtectedRoute allowedRoles={['parent']} />}>
+                <Route path="/parent" element={<ProtectedRoute allowedRoles={['parent']}><Outlet /></ProtectedRoute>}>
                     <Route index element={<ParentDashboard />} />
                 </Route>
 
                 {/* Maintenance */}
-                <Route path="/maintenance" element={<ProtectedRoute allowedRoles={['maintenance']} />}>
+                <Route path="/maintenance" element={<ProtectedRoute allowedRoles={['maintenance']}><Outlet /></ProtectedRoute>}>
                     <Route index element={<MaintenanceDashboard />} />
                 </Route>
             </Route>
