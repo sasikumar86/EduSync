@@ -19,7 +19,15 @@ export default function StudentsPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await api.post('/students', { ...form, guardian: { fatherName: 'Guardian' } });
+            await api.post('/students', {
+                ...form,
+                guardian: {
+                    fatherName: form.fatherName,
+                    guardianName: form.guardianName || form.fatherName,
+                    guardianPhone: form.guardianPhone || form.phone,
+                    guardianEmail: form.email // Using student email as contact if not separate
+                }
+            });
             toast.success('Student admitted'); setShowForm(false); load();
         } catch (err) { toast.error(err.response?.data?.message || 'Error'); }
     };
@@ -42,12 +50,15 @@ export default function StudentsPage() {
                         <option value="">Select</option>{classes.map((c) => <option key={c._id} value={c._id}>{c.name} - {c.section}</option>)}
                     </select></div>
                     <div><label className="block text-sm font-medium text-surface-700 mb-1">Roll No</label><input type="number" value={form.rollNo} onChange={(e) => setForm({ ...form, rollNo: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-surface-300 text-sm focus:ring-2 focus:ring-primary-500 outline-none" /></div>
+                    <div><label className="block text-sm font-medium text-surface-700 mb-1">Phone</label><input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-surface-300 text-sm focus:ring-2 focus:ring-primary-500 outline-none" /></div>
+                    <div><label className="block text-sm font-medium text-surface-700 mb-1">Father's Name</label><input value={form.fatherName} onChange={(e) => setForm({ ...form, fatherName: e.target.value })} required className="w-full px-3 py-2 rounded-lg border border-surface-300 text-sm focus:ring-2 focus:ring-primary-500 outline-none" /></div>
+                    <div><label className="block text-sm font-medium text-surface-700 mb-1">Guardian Phone</label><input value={form.guardianPhone} onChange={(e) => setForm({ ...form, guardianPhone: e.target.value })} required className="w-full px-3 py-2 rounded-lg border border-surface-300 text-sm focus:ring-2 focus:ring-primary-500 outline-none" /></div>
                     <div><label className="block text-sm font-medium text-surface-700 mb-1">Gender</label><select value={form.gender} onChange={(e) => setForm({ ...form, gender: e.target.value })} className="w-full px-3 py-2 rounded-lg border border-surface-300 text-sm focus:ring-2 focus:ring-primary-500 outline-none">
                         <option>Male</option><option>Female</option><option>Other</option>
                     </select></div>
                     <div className="md:col-span-3 flex gap-2"><button type="submit" className="px-6 py-2 gradient-primary text-white rounded-lg text-sm font-medium">Admit Student</button><button type="button" onClick={() => setShowForm(false)} className="px-6 py-2 bg-surface-100 text-surface-600 rounded-lg text-sm">Cancel</button></div>
                 </form>
-            )}
+            );
 
             <div className="relative"><Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" /><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="Search by name or admission no..." className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-surface-200 bg-white text-sm focus:ring-2 focus:ring-primary-400 outline-none" /></div>
 

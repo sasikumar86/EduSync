@@ -16,12 +16,22 @@ export default function AttendancePage() {
     useEffect(() => {
         if (selectedClass) {
             api.get(`/students?class=${selectedClass}`).then((r) => {
-                setStudents(r.data.data || []);
-                const init = {};
-                (r.data.data || []).forEach((s) => { init[s._id] = 'present'; });
-                setAttendance(init);
+                const fetchedStudents = r.data.data || [];
+                setStudents(fetchedStudents);
+
+                // Load existing records first, or default to 'present'
+                api.get(`/attendance?class=${selectedClass}&date=${date}`).then((res) => {
+                    const existingRecords = res.data.data || [];
+                    setExisting(existingRecords);
+
+                    const init = {};
+                    fetchedStudents.forEach((s) => {
+                        const record = existingRecords.find(r => r.student?._id === s._id || r.student === s._id);
+                        init[s._id] = record ? record.status : 'present';
+                    });
+                    setAttendance(init);
+                });
             });
-            api.get(`/attendance?class=${selectedClass}&date=${date}`).then((r) => setExisting(r.data.data || []));
         }
     }, [selectedClass, date]);
 
