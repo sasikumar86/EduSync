@@ -37,7 +37,19 @@ if (process.env.NODE_ENV === 'development') {
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+  const dbStatus = mongoose.connection.readyState;
+  const statusMap = {
+    0: 'disconnected',
+    1: 'connected',
+    2: 'connecting',
+    3: 'disconnecting'
+  };
+
+  res.json({
+    status: dbStatus === 1 ? 'ok' : 'limited',
+    database: statusMap[dbStatus] || 'unknown',
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Mount routes
