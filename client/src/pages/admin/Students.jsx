@@ -58,7 +58,7 @@ export default function StudentsPage() {
                     </select></div>
                     <div className="md:col-span-3 flex gap-2"><button type="submit" className="px-6 py-2 gradient-primary text-white rounded-lg text-sm font-medium">Admit Student</button><button type="button" onClick={() => setShowForm(false)} className="px-6 py-2 bg-surface-100 text-surface-600 rounded-lg text-sm">Cancel</button></div>
                 </form>
-            );
+            )}
 
             <div className="relative"><Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" /><input value={filter} onChange={(e) => setFilter(e.target.value)} placeholder="Search by name or admission no..." className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-surface-200 bg-white text-sm focus:ring-2 focus:ring-primary-400 outline-none" /></div>
 
