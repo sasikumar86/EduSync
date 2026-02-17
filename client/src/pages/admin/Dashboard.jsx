@@ -77,10 +77,10 @@ export default function AdminDashboard() {
             <div className="bg-white rounded-2xl p-6 shadow-card border border-surface-100">
                 <h2 className="font-semibold text-surface-900 mb-4">Quick Actions</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {[{ label: 'Add Student', icon: Users, path: '/admin/students', c: 'from-primary-500 to-primary-600' },
-                    { label: 'Mark Attendance', icon: ClipboardList, path: '/admin/attendance', c: 'from-accent-500 to-accent-600' },
-                    { label: 'View Results', icon: GraduationCap, path: '/admin/results', c: 'from-purple-500 to-purple-600' },
-                    { label: 'Collect Fee', icon: DollarSign, path: '/admin/fees', c: 'from-amber-500 to-amber-600' },
+                    {[{ label: 'Add Student', icon: Users, path: '/schooladmin/students', c: 'from-primary-500 to-primary-600' },
+                    { label: 'Mark Attendance', icon: ClipboardList, path: '/schooladmin/attendance', c: 'from-accent-500 to-accent-600' },
+                    { label: 'View Results', icon: GraduationCap, path: '/schooladmin/results', c: 'from-purple-500 to-purple-600' },
+                    { label: 'Collect Fee', icon: DollarSign, path: '/schooladmin/fees', c: 'from-amber-500 to-amber-600' },
                     ].map((a) => (
                         <a key={a.label} href={a.path} className="flex flex-col items-center gap-2 p-4 rounded-xl bg-surface-50 hover:bg-surface-100 transition-all group">
                             <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${a.c} flex items-center justify-center group-hover:scale-110 transition-transform`}><a.icon size={20} className="text-white" /></div>
